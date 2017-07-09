@@ -22,6 +22,7 @@
 		756D619E1F113E6000995043 /* ItemType+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756D61961F113E6000995043 /* ItemType+CoreDataClass.swift */; };
 		756D619F1F113E6000995043 /* ItemType+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756D61971F113E6000995043 /* ItemType+CoreDataProperties.swift */; };
 		756D61A21F11D72100995043 /* MaterialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756D61A11F11D72100995043 /* MaterialView.swift */; };
+		756D61A41F1267DB00995043 /* ItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756D61A31F1267DB00995043 /* ItemCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 		756D61961F113E6000995043 /* ItemType+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ItemType+CoreDataClass.swift"; sourceTree = "<group>"; };
 		756D61971F113E6000995043 /* ItemType+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ItemType+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		756D61A11F11D72100995043 /* MaterialView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialView.swift; sourceTree = "<group>"; };
+		756D61A31F1267DB00995043 /* ItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +116,7 @@
 			isa = PBXGroup;
 			children = (
 				756D61A11F11D72100995043 /* MaterialView.swift */,
+				756D61A31F1267DB00995043 /* ItemCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -190,6 +193,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				756D61A41F1267DB00995043 /* ItemCell.swift in Sources */,
 				756D619B1F113E6000995043 /* Item+CoreDataProperties.swift in Sources */,
 				756D619A1F113E6000995043 /* Item+CoreDataClass.swift in Sources */,
 				756D619E1F113E6000995043 /* ItemType+CoreDataClass.swift in Sources */,
