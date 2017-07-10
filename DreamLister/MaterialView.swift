@@ -12,7 +12,6 @@ private var materialKey = false
 
 extension UIView {  //wow this is in storyboard now
 
-    //something we can select in storyboard
     @IBInspectable var materialDesign: Bool {
         get {
             return materialKey
