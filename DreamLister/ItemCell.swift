@@ -9,6 +9,15 @@
 import UIKit
 
 class ItemCell: UITableViewCell {
+    
+    let numberFormatter: NumberFormatter = {
+        let nf = NumberFormatter()
+        nf.numberStyle = .currency
+        nf.minimumFractionDigits = 2
+        nf.maximumFractionDigits = 2
+        return nf
+    }()
+
 
     @IBOutlet weak var thumb: UIImageView!
     @IBOutlet weak var title: UILabel!
@@ -17,7 +26,8 @@ class ItemCell: UITableViewCell {
  
     func configureCell(item: Item) {
         title.text = item.title
-        price.text = String(item.price)
+        //price.text = String(item.price)
+        price.text = numberFormatter.string(from: NSNumber(value: item.price))  //yesss
         details.text = item.details
     }
 

@@ -11,11 +11,13 @@ import CoreData
 
 @objc(Item)
 public class Item: NSManagedObject {
+
     
     override public func awakeFromInsert() {
         super.awakeFromInsert()
         
         self.created = NSDate()  //timestamp, current date is assigned to attribute created when Item is inserted into object context
     }
+
 
 }
