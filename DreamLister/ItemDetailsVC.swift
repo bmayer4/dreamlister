@@ -1,5 +1,5 @@
 //
-//  ItemDetailsVC.swift
+//  e.swift
 //  DreamLister
 //
 //  Created by Brett Mayer on 7/9/17.
@@ -9,16 +9,19 @@
 import UIKit
 import CoreData
 
-class ItemDetailsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
+class ItemDetailsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     @IBOutlet weak var storePicker: UIPickerView!
     @IBOutlet weak var titleField: CustomTextField!
     @IBOutlet weak var priceField: CustomTextField!
     @IBOutlet weak var detailsField: CustomTextField!
+    @IBOutlet weak var thumbImg: UIImageView!
     
     var stores = [Store]()
     
     var itemToEdit: Item?  //we aren't always editing in this view
+    
+    var imagePicker: UIImagePickerController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +32,9 @@ class ItemDetailsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
     
         storePicker.delegate = self
         storePicker.dataSource = self
+        
+        imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
         
 //        let store = Store(context: context)
 //        store.name = "Best Buy"
@@ -94,18 +100,24 @@ class ItemDetailsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         
         //let item = Item(context: context)   //so we don't create duplicate entry
         var item: Item!
+        let picture = Image(context: context)
+        picture.image = thumbImg.image
         
         if itemToEdit ==  nil {
             item = Item(context: context)
         } else {
             item = itemToEdit  //core data takes care of the rest for us, will know behind the scense to update existing one
         }
+        
+        //now we have to associate the image to our item, also now that we have our image we will be working with
+        item.toImage = picture
+
    
         if let title = titleField.text {
             item.title = title
         }
         
-        if let price = priceField.text {  //need to use numberFormatter to make decimal 2 places, QA "price decimal"
+        if let price = priceField.text {  
             item.price = (price as NSString).doubleValue
         }
         
@@ -127,6 +139,7 @@ class ItemDetailsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
             titleField.text = item.title
             priceField.text = String(item.price)
             detailsField.text = item.details
+            thumbImg.image = item.toImage?.image as? UIImage
             
             if let store = item.toStore {
                 for i in 0..<stores.count {
@@ -134,7 +147,7 @@ class ItemDetailsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
                     
                     if s.name == store.name {
                         storePicker.selectRow(i, inComponent: 0, animated: false)
-                        print("did it, named: \(s.name)")
+                        print("did it, named: \(s.name!)")
                     }
                     
                     }
@@ -143,5 +156,27 @@ class ItemDetailsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
             
             }
         }
+    
+    @IBAction func deletePressed(_ sender: UIBarButtonItem) {
+        if itemToEdit != nil {
+            context.delete(itemToEdit!)
+            ad.saveContext()
+        }
+        
+        _ = navigationController?.popViewController(animated: true)
+    }
+    
+    @IBAction func addImage(_ sender: UIButton) {
+        present(imagePicker, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            thumbImg.image = image
+        }
+        dismiss(animated: true, completion: nil)
+    }
+    
+    
     
 }

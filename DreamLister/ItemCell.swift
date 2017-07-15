@@ -29,6 +29,7 @@ class ItemCell: UITableViewCell {
         //price.text = String(item.price)
         price.text = numberFormatter.string(from: NSNumber(value: item.price))  //yesss
         details.text = item.details
+        thumb.image = item.toImage?.image as? UIImage  //as? UIImage because Imager is saved as transformable in db
     }
 
 }

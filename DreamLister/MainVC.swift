@@ -78,7 +78,16 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, NSFe
     func attemptFetch() {
         let fetchRequest: NSFetchRequest<Item> = Item.fetchRequest()
         let dateSorted = NSSortDescriptor(key: "created", ascending: false)
-        fetchRequest.sortDescriptors = [dateSorted]
+        let priceSorted = NSSortDescriptor(key: "price", ascending: true)
+        let titleSorted = NSSortDescriptor(key: "title", ascending: true)
+        
+        if segment.selectedSegmentIndex  == 0 {
+            fetchRequest.sortDescriptors = [dateSorted]
+        } else if segment.selectedSegmentIndex  == 1  {
+            fetchRequest.sortDescriptors = [priceSorted]
+        }else if segment.selectedSegmentIndex  == 2  {
+            fetchRequest.sortDescriptors = [titleSorted]
+        }
         
         let controller = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
         
@@ -93,6 +102,12 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, NSFe
             print("\(error)")
         }
     }
+    
+    @IBAction func segmentChange(_ sender: Any) { //value changed event
+        attemptFetch()
+        tableView.reloadData()
+    }
+    
     
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         //when table view is about to update, this will listen to changes and handle them for you
@@ -110,15 +125,18 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, NSFe
         case .insert:
             if let newIndexPath = newIndexPath {
                 tableView.insertRows(at: [newIndexPath], with: .fade)
+                print("CREATING NOW") //This is called when I do savePressed action in ItemsDetailVC with new item
             }
         case .delete:
             if let indexPath = indexPath {
                 tableView.deleteRows(at: [indexPath], with: .fade)
+                print("DELETING NOW")  //This is called when I do deletePressed action in ItemsDetailVC
             }
         case .update:
             if let indexPath = indexPath {
                 let cell = tableView.cellForRow(at: indexPath) as! ItemCell
                 configureCell(cell: cell, indexPath: indexPath as NSIndexPath)
+                print("EDITING NOW")  //This is called when I do savePressed action in ItemsDetailVC with updated item
             }
         case .move:
             if let indexPath = indexPath {
