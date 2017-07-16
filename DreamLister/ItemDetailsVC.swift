@@ -15,6 +15,9 @@ class ItemDetailsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
     @IBOutlet weak var titleField: CustomTextField!
     @IBOutlet weak var priceField: CustomTextField!
     @IBOutlet weak var detailsField: CustomTextField!
+    @IBOutlet weak var typeField: CustomTextField!
+   
+    
     @IBOutlet weak var thumbImg: UIImageView!
     
     var stores = [Store]()
@@ -100,6 +103,7 @@ class ItemDetailsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         
         //let item = Item(context: context)   //so we don't create duplicate entry
         var item: Item!
+        let itemType = ItemType(context: context)
         let picture = Image(context: context)
         picture.image = thumbImg.image
         
@@ -121,6 +125,11 @@ class ItemDetailsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
             item.price = (price as NSString).doubleValue
         }
         
+        if let type = typeField.text {
+            itemType.type = type.capitalized
+            item.toItemType = itemType
+        }
+        
         if let details = detailsField.text {
             item.details = details
         }
@@ -140,6 +149,7 @@ class ItemDetailsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
             priceField.text = String(item.price)
             detailsField.text = item.details
             thumbImg.image = item.toImage?.image as? UIImage
+            typeField.text = item.toItemType?.type
             
             if let store = item.toStore {
                 for i in 0..<stores.count {

@@ -23,6 +23,7 @@ class ItemCell: UITableViewCell {
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var price: UILabel!
     @IBOutlet weak var details: UILabel!
+    @IBOutlet weak var type: UILabel!
  
     func configureCell(item: Item) {
         title.text = item.title
@@ -30,6 +31,7 @@ class ItemCell: UITableViewCell {
         price.text = numberFormatter.string(from: NSNumber(value: item.price))  //yesss
         details.text = item.details
         thumb.image = item.toImage?.image as? UIImage  //as? UIImage because Imager is saved as transformable in db
+        type.text = item.toItemType?.type
     }
 
 }

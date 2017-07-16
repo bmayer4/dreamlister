@@ -80,13 +80,16 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, NSFe
         let dateSorted = NSSortDescriptor(key: "created", ascending: false)
         let priceSorted = NSSortDescriptor(key: "price", ascending: true)
         let titleSorted = NSSortDescriptor(key: "title", ascending: true)
+        let typeSorted = NSSortDescriptor(key: "toItemType.type", ascending: true)
         
         if segment.selectedSegmentIndex  == 0 {
             fetchRequest.sortDescriptors = [dateSorted]
         } else if segment.selectedSegmentIndex  == 1  {
             fetchRequest.sortDescriptors = [priceSorted]
-        }else if segment.selectedSegmentIndex  == 2  {
+        } else if segment.selectedSegmentIndex  == 2  {
             fetchRequest.sortDescriptors = [titleSorted]
+        } else if segment.selectedSegmentIndex  == 3 {
+            fetchRequest.sortDescriptors = [typeSorted]
         }
         
         let controller = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
